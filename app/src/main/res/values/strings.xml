@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Room</string>
+    <string name="button_add">Add</string>
+    <string name="edit_hint">Add a TODO</string>
 </resources>
