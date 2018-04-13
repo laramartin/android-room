@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import eu.laramartin.room.model.Task
 
-@Database(entities = arrayOf(Task::class), version = 1)
+@Database(entities = [(Task::class)], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
 
