@@ -2,7 +2,6 @@ package eu.laramartin.room
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import eu.laramartin.room.db.AppDatabase
 import eu.laramartin.room.db.TaskDao
 import eu.laramartin.room.model.Task
@@ -21,17 +20,18 @@ class MainActivity : AppCompatActivity() {
         db = AppDatabase.getInstance(applicationContext)!!
 
         dao = db.taskDao()
-//
-        input = edit.text.toString()
 
-        val task = Task(description = input, id = 0)
+        button.setOnClickListener({
 
-        dao.insertTask(task)
+            input = edit.text.toString()
+            val task = Task(description = input, id = 0)
+            InsertAsyncTask(dao, task).execute()
+        })
 
-        var tasks: List<Task> = dao.loadAllTasks()
+//        var tasks: List<Task> = dao.loadAllTasks()
 
-        for (task in tasks) {
-            Log.v("MainActivity", "task number " + task.id + ", description: " + task.description)
-        }
+//        for (task in tasks) {
+//            Log.v("MainActivity", "task number " + task.id + ", description: " + task.description)
+//        }
     }
 }
