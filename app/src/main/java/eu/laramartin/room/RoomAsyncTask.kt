@@ -1,7 +1,6 @@
 package eu.laramartin.room
 
 import android.os.AsyncTask
-import android.util.Log
 import eu.laramartin.room.db.TaskDao
 import eu.laramartin.room.model.Task
 
@@ -11,7 +10,7 @@ class InsertAsyncTask(private val dao: TaskDao, private val task: Task) : AsyncT
     }
 }
 
-class LoadAllAsyncTask(private val dao: TaskDao) : AsyncTask<Unit, Unit, List<Task>>() {
+class LoadAllAsyncTask(private val dao: TaskDao, private val block: (List<Task>) -> Unit) : AsyncTask<Unit, Unit, List<Task>>() {
     override fun doInBackground(vararg params: Unit?): List<Task>? {
         return dao.loadAllTasks()
     }
@@ -19,9 +18,7 @@ class LoadAllAsyncTask(private val dao: TaskDao) : AsyncTask<Unit, Unit, List<Ta
     override fun onPostExecute(result: List<Task>?) {
         super.onPostExecute(result)
         if (result != null) {
-            for (task in result) {
-                Log.v("MainActivity", "task number " + task.id + ", description: " + task.description)
-            }
+            block(result)
         }
     }
 }
