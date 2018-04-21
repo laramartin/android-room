@@ -26,12 +26,9 @@ class MainActivity : AppCompatActivity() {
             input = edit.text.toString()
             val task = Task(description = input, id = 0)
             InsertAsyncTask(dao, task).execute()
+
+            LoadAllAsyncTask(dao).execute()
         })
 
-//        var tasks: List<Task> = dao.loadAllTasks()
-
-//        for (task in tasks) {
-//            Log.v("MainActivity", "task number " + task.id + ", description: " + task.description)
-//        }
     }
 }
