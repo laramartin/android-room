@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import eu.laramartin.room.db.AppDatabase
+import eu.laramartin.room.db.InsertAsyncTask
+import eu.laramartin.room.db.LoadAllAsyncTask
 import eu.laramartin.room.db.TaskDao
 import eu.laramartin.room.model.Task
 import kotlinx.android.synthetic.main.activity_main.*

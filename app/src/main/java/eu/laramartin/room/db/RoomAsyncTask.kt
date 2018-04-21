@@ -1,4 +1,4 @@
-package eu.laramartin.room
+package eu.laramartin.room.db
 
 import android.os.AsyncTask
 import eu.laramartin.room.db.TaskDao
