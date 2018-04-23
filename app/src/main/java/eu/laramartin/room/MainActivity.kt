@@ -32,6 +32,10 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener({
             input = edit.text.toString()
+            if (input.isEmpty()) {
+//                tasksAdapter.notifyDataSetChanged()
+                return@setOnClickListener
+            }
             val task = Task(description = input, id = 0)
             InsertAsyncTask(dao, task).execute()
 
@@ -42,11 +46,10 @@ class MainActivity : AppCompatActivity() {
                 tasksAdapter.loadData(it)
             }).execute()
         })
-
     }
 
     private fun initRecycler() {
-        tasksAdapter = TasksAdapter()
+        tasksAdapter = TasksAdapter(dao)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = tasksAdapter
     }

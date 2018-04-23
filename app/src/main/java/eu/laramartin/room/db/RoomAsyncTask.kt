@@ -1,7 +1,6 @@
 package eu.laramartin.room.db
 
 import android.os.AsyncTask
-import eu.laramartin.room.db.TaskDao
 import eu.laramartin.room.model.Task
 
 class InsertAsyncTask(private val dao: TaskDao, private val task: Task) : AsyncTask<Task, Unit, Unit>() {
@@ -20,5 +19,11 @@ class LoadAllAsyncTask(private val dao: TaskDao, private val block: (List<Task>)
         if (result != null) {
             block(result)
         }
+    }
+}
+
+class DeleteTaskAsyncTask(private val dao: TaskDao, private val task: Task) : AsyncTask<Task, Unit, Unit>() {
+    override fun doInBackground(vararg params: Task?) {
+        dao.deleteTask(task)
     }
 }

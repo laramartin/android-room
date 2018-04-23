@@ -4,9 +4,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import eu.laramartin.room.R
+import eu.laramartin.room.db.TaskDao
 import eu.laramartin.room.model.Task
 
-class TasksAdapter : RecyclerView.Adapter<TasksViewHolder>() {
+class TasksAdapter(private val dao: TaskDao) : RecyclerView.Adapter<TasksViewHolder>() {
 
     private var tasks: List<Task> = emptyList()
 
@@ -15,10 +16,14 @@ class TasksAdapter : RecyclerView.Adapter<TasksViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun removeTask(task: Task, position: Int) {
+        notifyItemRemoved(position)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
                         R.layout.list_item, parent, false)
-        return TasksViewHolder(view)
+        return TasksViewHolder(view, dao)
     }
 
     override fun getItemCount(): Int {
