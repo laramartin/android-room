@@ -3,7 +3,7 @@ package eu.laramartin.room.list
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.CheckBox
-import eu.laramartin.room.db.DeleteTaskAsyncTask
+import eu.laramartin.room.db.RoomAccessors
 import eu.laramartin.room.db.TaskDao
 import eu.laramartin.room.model.Task
 import kotlinx.android.synthetic.main.list_item.view.*
@@ -26,7 +26,7 @@ class TasksViewHolder(itemView: View, dao: TaskDao) :
     override fun onClick(v: View?) {
         val checkBox: CheckBox = v!!.checkBox
         if (checkBox.isChecked) {
-        DeleteTaskAsyncTask(currentDao, currentTask).execute()
+            RoomAccessors().deleteTask(currentDao, currentTask)
         }
     }
 }

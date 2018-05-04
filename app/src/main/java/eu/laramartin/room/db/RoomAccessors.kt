@@ -24,4 +24,14 @@ class RoomAccessors {
                 Log.d("RoomAccessors", "Insert Task successful")
             })
     }
+
+    fun deleteTask(dao: TaskDao, task: Task) {
+        Completable.fromCallable {
+            dao.deleteTask(task)
+        }
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                Log.d("RoomAccessors", "Delete Task successful")
+            })
+    }
 }

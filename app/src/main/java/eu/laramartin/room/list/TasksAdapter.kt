@@ -16,10 +16,6 @@ class TasksAdapter(private val dao: TaskDao) : RecyclerView.Adapter<TasksViewHol
         notifyDataSetChanged()
     }
 
-    fun removeTask(task: Task, position: Int) {
-        notifyItemRemoved(position)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
                         R.layout.list_item, parent, false)
