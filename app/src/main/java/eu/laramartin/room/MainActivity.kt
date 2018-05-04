@@ -3,10 +3,9 @@ package eu.laramartin.room
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import eu.laramartin.room.db.AppDatabase
 import eu.laramartin.room.db.InsertAsyncTask
-import eu.laramartin.room.db.LoadAllAsyncTask
+import eu.laramartin.room.db.RoomAccessors
 import eu.laramartin.room.db.TaskDao
 import eu.laramartin.room.list.TasksAdapter
 import eu.laramartin.room.model.Task
@@ -28,23 +27,16 @@ class MainActivity : AppCompatActivity() {
         dao = db.taskDao()
 
         initRecycler()
-        LoadAllAsyncTask(dao, { tasksAdapter.loadData(it) }).execute()
+
+        RoomAccessors().loadAllTasks(dao, { tasksAdapter.loadData(it) })
 
         button.setOnClickListener({
             input = edit.text.toString()
             if (input.isEmpty()) {
-//                tasksAdapter.notifyDataSetChanged()
                 return@setOnClickListener
             }
             val task = Task(description = input, id = 0)
             InsertAsyncTask(dao, task).execute()
-
-            LoadAllAsyncTask(dao, {
-                for (task in it) {
-                    Log.v("MainActivity", "task number " + task.id + ", description: " + task.description)
-                }
-                tasksAdapter.loadData(it)
-            }).execute()
         })
     }
 
