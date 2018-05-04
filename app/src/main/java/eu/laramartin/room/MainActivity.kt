@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import eu.laramartin.room.db.AppDatabase
-import eu.laramartin.room.db.InsertAsyncTask
 import eu.laramartin.room.db.RoomAccessors
 import eu.laramartin.room.db.TaskDao
 import eu.laramartin.room.list.TasksAdapter
@@ -18,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: AppDatabase
     private lateinit var tasksAdapter: TasksAdapter
 
+    private val roomAccessors = RoomAccessors()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         initRecycler()
 
-        RoomAccessors().loadAllTasks(dao, { tasksAdapter.loadData(it) })
+        roomAccessors.loadAllTasks(dao, { tasksAdapter.loadData(it) })
 
         button.setOnClickListener({
             input = edit.text.toString()
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             val task = Task(description = input, id = 0)
-            InsertAsyncTask(dao, task).execute()
+            roomAccessors.insertTask(dao, task)
         })
     }
 
