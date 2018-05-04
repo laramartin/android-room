@@ -46,4 +46,9 @@ class MainActivity : AppCompatActivity() {
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = tasksAdapter
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        roomAccessors.dispose()
+    }
 }
